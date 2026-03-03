@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:7.15.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.15.0'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.18.1'
+    testImplementation 'io.rest-assured:rest-assured:5.4.0'
+    testImplementation 'junit:junit:4.13.2'
+}
+
+test {
+    systemProperty "cucumber.plugin", "pretty, html:target/cucumber-reports.html, json:target/cucumber-reports.json"
+}
+
+task runWeb(type: Test) {
+    systemProperty "cucumber.filter.tags", "@web"
+    systemProperty "cucumber.plugin", "pretty, html:target/report-web.html, json:target/report-web.json"
+}
+
+task runApi(type: Test) {
+    systemProperty "cucumber.filter.tags", "@api"
+    systemProperty "cucumber.plugin", "pretty, html:target/report-api.html, json:target/report-api.json"
+}

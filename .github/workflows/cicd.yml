@@ -1,0 +1,22 @@
+name: Final Project
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'corretto'
+      - run: chmod +x gradlew
+      - run: ./gradlew runApi
+      - run: ./gradlew runWeb
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Report-Cucumber
+          path: target/
