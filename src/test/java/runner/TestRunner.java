@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
         features = "classpath:features",
         glue = {"steps"},
         plugin = {"pretty", "html:target/cucumber-reports.html", "json:target/cucumber-reports.json"},
-        monochrome = true
+        monochrome = true,
+        tags = "@api or @web"
 )
 public class TestRunner {}

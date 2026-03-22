@@ -54,10 +54,20 @@ public class AllSteps {
 
     @And("Saya menambah barang {string} ke cart")
     public void addToCart(String item) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        // Klik Nama Barang (Pakai retry kalau gagal)
         wait.until(ExpectedConditions.elementToBeClickable(By.linkText(item))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Add to cart"))).click();
-        wait.until(ExpectedConditions.alertIsPresent()).accept();
+
+        // Klik Tombol Add to Cart
+        WebElement addToCartBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Add to cart']")));
+        addToCartBtn.click();
+
+        // Tunggu Alert muncul dan klik OK
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
+
+        // Klik Menu Cart untuk lanjut checkout
         driver.findElement(By.id("cartur")).click();
     }
 
