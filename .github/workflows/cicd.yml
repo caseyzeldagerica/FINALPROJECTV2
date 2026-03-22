@@ -1,4 +1,4 @@
-name: Final Project
+name: Final Project V2
 on:
   push:
     branches: [ "main" ]
@@ -13,10 +13,12 @@ jobs:
           java-version: '21'
           distribution: 'corretto'
       - run: chmod +x gradlew
-      - run: ./gradlew runApi
-      - run: ./gradlew runWeb
+      - name: Run API Tests
+        run: ./gradlew runApi
+      - name: Run Web Tests
+        run: ./gradlew runWeb
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Report-Cucumber
+          name: Laporan-Final-Project-Lengkap
           path: target/
